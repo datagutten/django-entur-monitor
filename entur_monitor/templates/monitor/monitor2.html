@@ -1,0 +1,17 @@
+{% extends "monitor/ruter.html" %}
+{% load static %}
+{% block content %}
+    <img id="top-logo" alt="logo" src="{% static 'monitor/img/Ruterlogo.gif' %}"/>
+    <div id="stop-point-header-left">{{ name1 }}</div>
+    <div id="stop-point-header-right">{{ name2 }}</div>
+    <div id="clock"></div>
+    <div id="LeftRefresh">
+        {# include "monitor/departure_column.html" with departures=departures1 #}
+    </div>
+    <div id="RightRefresh">
+        {% include "monitor/departure_column.html" with departures=departures2 %}
+    </div>
+    <div id="Deviations">
+    </div>
+
+{% endblock %}

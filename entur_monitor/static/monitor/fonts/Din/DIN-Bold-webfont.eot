@@ -1,0 +1,53 @@
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="refresh" content="3600"/>
+    <title>SIS-monitor</title>
+	 <link href="/Content/css/dinfont.css" rel="stylesheet" type="text/css" />
+     <link href="/Content/css/sismonitor_kd.css?v=20170203" rel="stylesheet" type="text/css" />
+    <script src="/Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.divslideshow-1.2.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+           
+            repeater();
+            clockRepeater();
+            deviationRepeater();
+            setInterval("repeater()", 30000);
+            setInterval("clockRepeater()", 10000);
+            setInterval("deviationRepeater()", 60000);
+            
+            
+        });
+        function repeater() {
+            $("#LeftRefresh").load('/SisMonitor/Refresh?stopid=fonts&computerid=22d6f35d-946b-43aa-8e1c-8939a3b7d09f&isOnLeftSide=true&blocks=&rows=&test=&elHighlight=&filter=None&sid=' + Math.random() * 99999);
+            $("#RightRefresh").load('/SisMonitor/Refresh?stopid=DIN-Bold-webfont.eot&computerid=22d6f35d-946b-43aa-8e1c-8939a3b7d09f&isOnLeftSide=false&blocks=&rows=&test=&elHighlight=&filter=None&sid=' + Math.random() * 99999);
+        }
+        function clockRepeater() {
+            $("#clock").load('/SisMonitor/Clock?clock=&sid=' + Math.random() * 99999);
+        }
+        function deviationRepeater() {
+            $("#Deviations").load('/SisMonitor/Deviation?computerid=22d6f35d-946b-43aa-8e1c-8939a3b7d09f&stops=fonts,DIN-Bold-webfont.eot&sid=' + Math.random() * 99999);
+        }
+        
+    </script>
+</head>
+<body>
+    <img id="top-logo" alt="logo" src="/Content/img/Ruterlogo.gif" />
+    <div id="stop-point-header-left">Din</div>
+    <div id="stop-point-header-right">testhoyre</div>
+    <div id="clock"></div>
+ 
+    <div id="LeftRefresh">
+    </div>
+    
+    <div id="RightRefresh">
+    </div>
+    <div id="Deviations">
+    </div>
+</body>
+</html>
