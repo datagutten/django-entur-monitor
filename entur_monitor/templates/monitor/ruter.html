@@ -24,8 +24,8 @@
         });
 
         function repeater() {
-            $("#LeftRefresh").load('{% url 'monitor:refresh' stop=stop quays=quays1|join:"," %}');
-            $("#RightRefresh").load('{% url 'monitor:refresh' stop=stop quays=quays2|join:"," %}');
+            $("#LeftRefresh").load('{% url 'monitor:refresh' stop=stop quays=quays1|join:"," %}?limit={{ limit }}');
+            $("#RightRefresh").load('{% url 'monitor:refresh' stop=stop quays=quays2|join:"," %}?limit={{ limit }}');
         }
 
         function clockRepeater() {

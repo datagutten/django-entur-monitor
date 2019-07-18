@@ -6,19 +6,16 @@ entur = JourneyPlannerUtils('datagutten-sis-monitor')
 # Create your views here.
 
 
-def monitor2(request, stop, quays1=None, quays2=None, name1='', name2='', 
+def monitor2(request, stop, quays1=None, quays2=None, name1='', name2='',
              debug=False):
     if quays1 is None:
         quays1 = []
     if quays2 is None:
         quays2 = []
-    print('Left')
-    departures1 = entur.filter_departures(stop, quays=quays1)
-    # pprint(depatures1)
-    # print(departures1[0])
-    print('Right')
-    departures2 = entur.filter_departures(stop, quays=quays2)
-    # print(departures2[0])
+    limit = int(request.GET.get('limit', 20))
+    departures1 = entur.filter_departures(stop, quays=quays1, limit=limit)
+    departures2 = entur.filter_departures(stop, quays=quays2, limit=limit)
+
     return render(request, 'monitor/monitor2.html',
                   {'departures1': departures1,
                    'departures2': departures2,
@@ -27,6 +24,7 @@ def monitor2(request, stop, quays1=None, quays2=None, name1='', name2='',
                    'stop': stop,
                    'quays1': quays1,
                    'quays2': quays2,
+                   'limit': limit,
                    'debug': debug}
                   )
 
