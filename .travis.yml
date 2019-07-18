@@ -9,7 +9,6 @@ env:
   - DJANGO_VERSION=2.1
   - DJANGO_VERSION=2.2
 install:
-  - python setup.py install
   - pip install tox
 # command to run tests
 script:
