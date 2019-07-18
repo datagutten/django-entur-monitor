@@ -59,8 +59,10 @@ def clock(request):
 
 
 def refresh(request, stop, quays=''):
-    quays = quays.split(',')
-    # return HttpResponse(quays[0])
+    if quays == 'all':
+        quays = None
+    else:
+        quays = quays.split(',')
 
     limit = int(request.GET.get('limit', None))
 
