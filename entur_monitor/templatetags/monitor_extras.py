@@ -12,3 +12,20 @@ def time(value):
 
 
 register.filter('time', time)
+
+
+def color(line):
+    """Show line color
+    colors.json is generated from entur static data"""
+
+    import json
+    import os
+    fp = open(os.path.dirname(__file__) + '/colors.json')
+    colours = json.load(fp)
+    if line in colours:
+        return '#' + colours[line]
+    else:
+        return 'none'
+
+
+register.filter('color', color)

@@ -41,3 +41,8 @@ class MonitorTests(SimpleTestCase):
     def test_refresh_quays(self):
         response = self.client.get('/refresh/NSR:StopPlace:58381/NSR:Quay:8027,NSR:Quay:8028?limit=15')
         self.assertContains(response, 'Frognerseteren')
+
+    def test_color(self):
+        from entur_monitor.templatetags.monitor_extras import color
+        line_colour = color('RUT:Line:83')
+        self.assertEqual('#E60000', line_colour)

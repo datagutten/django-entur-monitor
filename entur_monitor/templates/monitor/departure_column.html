@@ -8,7 +8,7 @@
 </tr>
 {% for departure in departures %}
     <tr>
-        <td class="linenumbercol">{{ departure.serviceJourney.journeyPattern.line.publicCode }}</td>
+        <td class="linenumbercol"><div class="lineNumberBox" style="background-color: {{ departure.serviceJourney.journeyPattern.line.id|color }}">{{ departure.serviceJourney.journeyPattern.line.publicCode }}</div></td>
         <td class="destcol">{{ departure.destinationDisplay.frontText }}</td>
         <td class="departurecol">{{ departure.expectedDepartureTime|time }}</td>
         <td class="platformcol">{{ departure.quay.publicCode }}</td>
