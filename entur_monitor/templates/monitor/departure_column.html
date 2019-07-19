@@ -11,7 +11,11 @@
         <td class="linenumbercol"><div class="lineNumberBox" style="background-color: {{ departure.serviceJourney.journeyPattern.line.id|color }}">{{ departure.serviceJourney.journeyPattern.line.publicCode }}</div></td>
         <td class="destcol">{{ departure.destinationDisplay.frontText }}</td>
         <td class="departurecol">{{ departure.expectedDepartureTime|time }}</td>
+        {% if departure.quay.description %}
+        <td class="platformcol">{{ departure.quay.publicCode }} &nbsp;({{ departure.quay.description }})</td>
+        {% else %}
         <td class="platformcol">{{ departure.quay.publicCode }}</td>
+        {% endif %}
         {% if debug %}
             <td class="platformcol">{{ departure.quay.id }}</td>
         {% endif %}
