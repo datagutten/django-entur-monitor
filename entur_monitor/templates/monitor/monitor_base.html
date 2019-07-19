@@ -1,0 +1,56 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="refresh" content="3600"/>
+    <meta charset="utf-8">
+    <title>SIS-monitor</title>
+    <link href="{% static "monitor/css/sismonitor_kd.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "monitor/css/dinfont.css" %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'monitor/scripts/jquery-1.7.1.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'monitor/scripts/jquery.divslideshow-1.2.js' %}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+            repeater();
+            clockRepeater();
+            deviationRepeater();
+            setInterval("repeater()", 30000);
+            setInterval("clockRepeater()", 10000);
+            setInterval("deviationRepeater()", 60000);
+
+
+        });
+
+        function repeater() {
+            let url_left;
+            let url_right;
+            {% if quays1 and quays2 %}
+                url_left = '{% url 'monitor:refresh' stop=stop quays=quays1|join:"," %}?limit={{ limit }}';
+                url_right = '{% url 'monitor:refresh' stop=stop quays=quays2|join:"," %}?limit={{ limit }}';
+            {% else %}
+                url_left = '{% url 'monitor:refresh' stop=stop1 %}?limit={{ limit }}';
+                url_right = '{% url 'monitor:refresh' stop=stop2 %}?limit={{ limit }}';
+            {% endif %}
+            $("#LeftRefresh").load(url_left);
+            $("#RightRefresh").load(url_right);
+        }
+
+        function clockRepeater() {
+            $("#clock").load('{% url 'monitor:clock' %}');
+        }
+
+        function deviationRepeater() {
+            //$("#Deviations").load('/SisMonitor/Deviation?computerid=62b93192-90e5-41d1-8735-100e4d1acb57&stops=3010200,3010201&sid=' + Math.random() * 99999);
+        }
+
+    </script>
+
+
+</head>
+
+<body>
+{% block content %} {% endblock %}
+</body>
+</html>

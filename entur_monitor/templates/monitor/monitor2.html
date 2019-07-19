@@ -1,9 +1,17 @@
-{% extends "monitor/ruter.html" %}
+{% extends "monitor/monitor_base.html" %}
 {% load static %}
 {% block content %}
     <img id="top-logo" alt="logo" src="{% static 'monitor/img/Ruterlogo.gif' %}"/>
+    {% if not name1 and stop1_info %}
+    <div id="stop-point-header-left">{{ stop1_info.name }}&nbsp;{{ stop1_info.description }}</div>
+    {% elif name1 %}
     <div id="stop-point-header-left">{{ name1 }}</div>
+    {% endif %}
+    {% if not name2 and stop2_info %}
+    <div id="stop-point-header-right">{{ stop2_info.name }}&nbsp;{{ stop2_info.description }}</div>
+    {% elif name2 %}
     <div id="stop-point-header-right">{{ name2 }}</div>
+    {% endif %}
     <div id="clock"></div>
     <div id="LeftRefresh">
         {# include "monitor/departure_column.html" with departures=departures1 #}

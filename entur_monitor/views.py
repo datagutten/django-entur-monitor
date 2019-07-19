@@ -35,6 +35,26 @@ def monitor2_url(request, stop, left, right, left_name='', right_name=''):
     return monitor2(request, stop, quays1, quays2, left_name, right_name)
 
 
+def monitor2_stops(request, stop1, stop2):
+    stop1_info = entur.stop_info(stop1)
+    stop2_info = entur.stop_info(stop2)
+    departures1 = entur.stop_departures_app(stop1)
+
+    departures2 = entur.stop_departures_app(stop2)
+    limit = int(request.GET.get('limit', 20))
+    debug = request.GET.get('debug', 'false')
+    return render(request, 'monitor/monitor2.html',
+                  {'departures1': departures1['data']['stopPlace']['estimatedCalls'],
+                   'departures2': departures2['data']['stopPlace']['estimatedCalls'],
+                   'stop1_info': stop1_info['data']['stopPlace'],
+                   'stop2_info': stop2_info['data']['stopPlace'],
+                   'stop1': stop1,
+                   'stop2': stop2,
+                   'limit': limit,
+                   'debug': debug}
+                  )
+
+
 def monitor2_test(request, debug=False):
     return monitor2(request, 'NSR:StopPlace:58381', 
                     ['NSR:Quay:8027', 'NSR:Quay:8028'], 
@@ -58,7 +78,7 @@ def clock(request):
     return HttpResponse(time)
 
 
-def refresh(request, stop, quays=''):
+def refresh(request, stop, quays='all'):
     if quays == 'all':
         quays = None
     else:

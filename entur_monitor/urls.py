@@ -9,7 +9,9 @@ urlpatterns = [
     path('monitor/<str:stop>/<str:left>/<str:left_name>/<str:right>/<str:right_name>',
          views.monitor2_url, name='monitor2'),
     path('monitor/<str:stop>/<str:left>/<str:right>', views.monitor2_url, name='monitor2'),
+    path('stops/<str:stop1>/<str:stop2>', views.monitor2_stops, name='monitor2'),
     path('debug', views.monitor2_test_debug, name='monitor2_debug'),
     path('clock', views.clock, name='clock'),
-    path('refresh/<str:stop>/<str:quays>', views.refresh, name='refresh')
+    path('refresh/<str:stop>/<str:quays>', views.refresh, name='refresh'),
+    path('refresh/<str:stop>', views.refresh, name='refresh'),
 ]
