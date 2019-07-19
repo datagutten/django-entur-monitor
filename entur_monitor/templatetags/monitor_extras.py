@@ -20,11 +20,14 @@ def color(line):
 
     import json
     import os
-    fp = open(os.path.dirname(__file__) + '/colors.json')
-    colours = json.load(fp)
-    if line in colours:
-        return '#' + colours[line]
-    else:
+    try:
+        fp = open(os.path.dirname(__file__) + '/colors.json')
+        colours = json.load(fp)
+        if line in colours:
+            return '#' + colours[line]
+        else:
+            return 'none'
+    except FileNotFoundError:
         return 'none'
 
 
