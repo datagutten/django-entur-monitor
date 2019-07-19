@@ -5,7 +5,10 @@ register = template.Library()
 
 
 def time(value):
-    return dateutil.parser.parse(value).strftime('%H:%M')
+    try:
+        return dateutil.parser.parse(value).strftime('%H:%M')
+    except ValueError:
+        return value
 
 
 register.filter('time', time)

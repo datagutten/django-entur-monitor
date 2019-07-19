@@ -29,6 +29,12 @@ def monitor2(request, stop, quays1=None, quays2=None, name1='', name2='',
                   )
 
 
+def monitor1(request, stop):
+    departures = entur.stop_departures_app(stop)
+    departures = departures['data']['stopPlace']['estimatedCalls']
+    return render(request, 'monitor/monitor1.html', {'departures': departures, 'stop': stop, 'limit': 20})
+
+
 def monitor2_url(request, stop, left, right, left_name='', right_name=''):
     quays1 = left.split(',')
     quays2 = right.split(',')
@@ -56,20 +62,24 @@ def monitor2_stops(request, stop1, stop2):
 
 
 def monitor2_test(request, debug=False):
-    return monitor2(request, 'NSR:StopPlace:58381', 
-                    ['NSR:Quay:8027', 'NSR:Quay:8028'], 
+    return monitor2(request, 'NSR:StopPlace:58381',
+                    ['NSR:Quay:8027', 'NSR:Quay:8028'],
                     ['NSR:Quay:8050', 'NSR:Quay:8051'],
-                    'Majorstua (Tunnelbane)', 'Majorstua (Sporvogn)', 
+                    'Majorstua (Tunnelbane)', 'Majorstua (Sporvogn)',
                     debug=debug)
 
 
 def monitor2_test_debug(request):
-    return monitor2(request,
-                    stop='NSR:StopPlace:58381',
+    departures = entur.filter_departures(stop='NSR:StopPlace:58381', limit=None)
+    return render(request, 'monitor/departure_column.html', {'departures': departures, 'debug': True})
+
+    """return monitor2(request,
+                    stop=,
                     quays1=['NSR:Quay:8027', 'NSR:Quay:8028'],
+                    quays2=['all'],
                     name1='Majorstua (Tunnelbane)',
                     name2='Majorstua (Alt)',
-                    debug=True)
+                    debug=True)"""
 
 
 def clock(request):
@@ -89,3 +99,22 @@ def refresh(request, stop, quays='all'):
     departures_dict = entur.filter_departures(stop, quays=quays, limit=limit)
     return render(request, 'monitor/departure_column.html',
                   {'departures': departures_dict})
+
+
+def departure_limit(request):
+    # departure height: 50px
+    # header: 47px+20
+    # 140px
+    # table header: 26px
+    # departures = screen height - 140 - 26 / 50
+    from math import floor
+    departure_height = int(request.GET['departure_height'])
+    top_offset = int(request.GET['top_offset'])
+    screen_height = int(request.GET['screen_height'])
+
+    limit = floor((screen_height - top_offset) / departure_height)
+    return HttpResponse(limit)
+
+
+def find_limit(request):
+    return render(request, 'monitor/find_limit.html')

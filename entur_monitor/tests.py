@@ -1,9 +1,9 @@
-from django.test import TestCase
+from django.test import SimpleTestCase
 from django.test.client import Client
 from django.conf import settings
 
 
-class MonitorTests(TestCase):
+class MonitorTests(SimpleTestCase):
     INSTALLED_APPS = (
         'django.contrib.auth',
         'django.contrib.contenttypes',
@@ -13,12 +13,6 @@ class MonitorTests(TestCase):
 
     def setUp(self):
         self.client = Client()
-
-        """settings.configure(
-            DEBUG=True,
-            # INSTALLED_APPS=self.INSTALLED_APPS + 'entur_monitor.apps.EnturMonitorConfig',
-            DATABASE=None,
-        )"""
 
     def test_monitor(self):
         response = self.client.get(
