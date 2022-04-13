@@ -92,12 +92,13 @@ def refresh(request, stop, quays='all'):
         quays = None
     else:
         quays = quays.split(',')
+    debug = request.GET.get('debug', 'false')
 
     limit = int(request.GET.get('limit', None))
 
     departures_dict = entur.filter_departures(stop, quays=quays, limit=limit)
     return render(request, 'monitor/departure_column.html',
-                  {'departures': departures_dict})
+                  {'departures': departures_dict, debug: debug})
 
 
 def departure_limit(request):
