@@ -1,8 +1,7 @@
 from django.shortcuts import render, HttpResponse
-# from entur_api import journey_planner_utils
-from entur_api.journey_planner_utils import JourneyPlannerUtils
+from entur_api import EnturJourneyPlannerUtils
 
-entur = JourneyPlannerUtils('datagutten-sis-monitor')
+entur = EnturJourneyPlannerUtils('datagutten-sis-monitor')
 # Create your views here.
 
 
